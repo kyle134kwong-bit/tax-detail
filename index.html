@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>收入纳税明细</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: #f5f5f5; color: #333; }
+
+  /* 顶部导航 */
+  .nav-bar {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-back {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    padding: 4px 8px 4px 0;
+    text-decoration: none;
+  }
+  .nav-title {
+    flex: 1;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .nav-right { width: 40px; }
+
+  /* 查询页 */
+  .query-page { display: block; }
+  .result-page { display: none; }
+
+  .form-card {
+    background: #fff;
+    margin: 16px;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .form-item {
+    margin-bottom: 16px;
+  }
+  .form-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    background: #fafafa;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+  .form-select:focus { outline: none; border-color: #1989fa; }
+
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .type-btn {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    background: #fafafa;
+    color: #333;
+    transition: all 0.2s;
+  }
+  .type-btn.active {
+    background: #e8f3ff;
+    border-color: #1989fa;
+    color: #1989fa;
+  }
+
+  .query-btn {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 0 16px 24px;
+    padding: 14px;
+    background: #1989fa;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+  }
+  .query-btn:active { opacity: 0.85; }
+
+  /* 结果页 */
+  .summary-card {
+    background: linear-gradient(135deg, #1989fa, #0c6dd9);
+    margin: 16px;
+    border-radius: 12px;
+    padding: 20px;
+    color: #fff;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .summary-item { flex: 1; }
+  .summary-item + .summary-item { text-align: right; }
+  .summary-label {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+  .summary-amount {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .summary-unit { font-size: 14px; margin-left: 2px; }
+
+  .batch-btn {
+    display: block;
+    text-align: center;
+    color: #1989fa;
+    font-size: 14px;
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  .section-title {
+    font-size: 13px;
+    color: #999;
+    padding: 8px 16px 6px;
+  }
+
+  .record-card {
+    background: #fff;
+    margin: 0 16px 10px;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .record-type {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+  }
+  .record-date {
+    font-size: 13px;
+    color: #999;
+  }
+  .record-subtype {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  .record-employer {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .record-amounts {
+    display: flex;
+    background: #f8f8f8;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .amount-item {
+    flex: 1;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .amount-item + .amount-item {
+    border-left: 1px solid #eee;
+  }
+  .amount-label {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 4px;
+  }
+  .amount-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+  }
+  .amount-value.tax { color: #e67e22; }
+
+  .bottom-space { height: 30px; }
+</style>
+</head>
+<body>
+
+<!-- 查询页 -->
+<div class="query-page" id="queryPage">
+  <div class="nav-bar">
+    <a class="nav-back">＜返回</a>
+    <div class="nav-title">收入纳税明细</div>
+    <div class="nav-right"></div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-item">
+      <div class="form-label">请选择纳税年度</div>
+      <select class="form-select" id="yearSelect">
+        <option value="2026">2026</option>
+        <option value="2025" selected>2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+      </select>
+    </div>
+    <div class="form-item">
+      <div class="form-label">请选择所得类型</div>
+      <div class="type-grid">
+        <div class="type-btn active" onclick="toggleType(this)">工资薪金</div>
+        <div class="type-btn" onclick="toggleType(this)">劳务报酬</div>
+        <div class="type-btn" onclick="toggleType(this)">稿酬</div>
+        <div class="type-btn" onclick="toggleType(this)">特许权使用费</div>
+        <div class="type-btn" onclick="toggleType(this)">其他类型</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="query-btn" onclick="showResult()">查询</button>
+</div>
+
+<!-- 结果页 -->
+<div class="result-page" id="resultPage">
+  <div class="nav-bar">
+    <span class="nav-back" onclick="showQuery()">＜返回</span>
+    <div class="nav-title">收入纳税明细</div>
+    <div class="nav-right"></div>
+  </div>
+
+  <div id="summaryCard"></div>
+
+  <div class="batch-btn">批量申诉</div>
+
+  <div class="section-title">明细记录</div>
+  <div id="recordList"></div>
+  <div class="bottom-space"></div>
+</div>
+
+<script>
+// 数据
+const data = {
+  '2025': {
+    summary: { income: '218572.98', tax: '9505.46' },
+    records: [
+      { type: '工资薪金', date: '2025-12', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '21301.00', tax: '1389.53' },
+      { type: '工资薪金', date: '2025-12', subtype: '全年一次性奖金收入', employer: '广东省维业科技有限公司', income: '13500.00', tax: '405.00' },
+      { type: '工资薪金', date: '2025-11', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-10', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-09', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-08', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-07', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-06', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-05', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-04', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-03', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-02', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+      { type: '工资薪金', date: '2025-01', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15830.00', tax: '842.43' },
+    ]
+  },
+  '2024': {
+    summary: { income: '180000.00', tax: '7200.00' },
+    records: [
+      { type: '工资薪金', date: '2024-12', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15000.00', tax: '600.00' },
+      { type: '工资薪金', date: '2024-11', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '15000.00', tax: '600.00' },
+    ]
+  },
+  '2023': {
+    summary: { income: '160000.00', tax: '5800.00' },
+    records: [
+      { type: '工资薪金', date: '2023-12', subtype: '正常工资薪金', employer: '广东省维业科技有限公司', income: '13000.00', tax: '480.00' },
+    ]
+  },
+  '2026': {
+    summary: { income: '0.00', tax: '0.00' },
+    records: []
+  }
+};
+
+function toggleType(el) {
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function showResult() {
+  const year = document.getElementById('yearSelect').value;
+  const d = data[year] || data['2025'];
+
+  // 汇总卡
+  document.getElementById('summaryCard').innerHTML = `
+    <div class="summary-card">
+      <div class="summary-row">
+        <div class="summary-item">
+          <div class="summary-label">收入合计</div>
+          <div class="summary-amount">${d.summary.income}<span class="summary-unit">元</span></div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">已申报税额合计</div>
+          <div class="summary-amount">${d.summary.tax}<span class="summary-unit">元</span></div>
+        </div>
+      </div>
+    </div>`;
+
+  // 明细列表
+  const list = document.getElementById('recordList');
+  if (d.records.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">暂无数据</div>';
+  } else {
+    list.innerHTML = d.records.map(r => `
+      <div class="record-card">
+        <div class="record-header">
+          <span class="record-type">${r.type}</span>
+          <span class="record-date">${r.date}</span>
+        </div>
+        <div class="record-subtype">所得项目小类：${r.subtype}</div>
+        <div class="record-employer">扣缴义务人：${r.employer}</div>
+        <div class="record-amounts">
+          <div class="amount-item">
+            <div class="amount-label">收入</div>
+            <div class="amount-value">${r.income}元</div>
+          </div>
+          <div class="amount-item">
+            <div class="amount-label">已申报税额</div>
+            <div class="amount-value tax">${r.tax}元</div>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  document.getElementById('queryPage').style.display = 'none';
+  document.getElementById('resultPage').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function showQuery() {
+  document.getElementById('queryPage').style.display = 'block';
+  document.getElementById('resultPage').style.display = 'none';
+}
+</script>
+</body>
+</html>
