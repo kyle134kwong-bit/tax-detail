@@ -9,58 +9,59 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="收入纳税明细">
-<title>收入纳税明细</title>
+<title>收入纳税明细 v2.0</title>
 <style>
+/* 版本: 4.0 - 按原图设计 - 更新时间: 2026-04-05 11:52 */
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-body { font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif; background:#f5f5f5; color:#333; font-size:14px; line-height:1.5; }
+body { font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif; background:#f5f5f7; color:#333; font-size:14px; line-height:1.5; }
 .page { display:none; min-height:100vh; flex-direction:column; }
 .page.active { display:flex; }
-.navbar { background:#fff; display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #eee; position:sticky; top:0; z-index:10; }
-.navbar .back { font-size:15px; color:#333; display:flex; align-items:center; min-width:50px; cursor:pointer; }
+.navbar { background:#fff; display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #e5e5e5; position:sticky; top:0; z-index:10; }
+.navbar .back { font-size:15px; color:#007aff; display:flex; align-items:center; min-width:50px; cursor:pointer; }
 .navbar .back::before { content:'‹'; font-size:24px; line-height:1; margin-right:2px; }
-.navbar .title { flex:1; text-align:center; font-size:17px; font-weight:600; color:#111; }
+.navbar .title { flex:1; text-align:center; font-size:17px; font-weight:600; color:#000; }
 .navbar .right { min-width:50px; }
 
 /* Page 1 */
-.query-body { flex:1; background:#f5f5f5; padding:12px 0; }
+.query-body { flex:1; background:#f5f5f7; padding:12px 0; }
 .form-group { background:#fff; margin-bottom:10px; }
-.form-row { display:flex; align-items:center; padding:14px 16px; border-bottom:1px solid #f0f0f0; }
+.form-row { display:flex; align-items:center; padding:14px 16px; border-bottom:1px solid #e5e5e5; }
 .form-row:last-child { border-bottom:none; }
-.form-label { font-size:15px; color:#333; width:80px; flex-shrink:0; }
-.form-select { flex:1; border:none; outline:none; font-size:15px; color:#333; background:transparent; -webkit-appearance:none; appearance:none; text-align:right; padding-right:20px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23999' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 2px center; }
+.form-label { font-size:15px; color:#000; width:80px; flex-shrink:0; }
+.form-select { flex:1; border:none; outline:none; font-size:15px; color:#000; background:transparent; -webkit-appearance:none; appearance:none; text-align:right; padding-right:20px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23999' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 2px center; }
 .checkbox-group { background:#fff; padding:14px 16px; margin-bottom:10px; }
-.checkbox-group-title { font-size:15px; color:#333; margin-bottom:14px; }
+.checkbox-group-title { font-size:15px; color:#000; margin-bottom:14px; }
 .checkbox-list { display:flex; flex-direction:column; gap:14px; }
 .checkbox-item { display:flex; align-items:center; gap:10px; cursor:pointer; }
-.checkbox-item input[type=checkbox] { width:20px; height:20px; accent-color:#1677ff; cursor:pointer; }
-.checkbox-item span { font-size:15px; color:#333; }
+.checkbox-item input[type=checkbox] { width:20px; height:20px; accent-color:#007aff; cursor:pointer; }
+.checkbox-item span { font-size:15px; color:#000; }
 .query-btn-wrap { padding:20px 16px; }
-.query-btn { width:100%; height:48px; background:#1677ff; color:#fff; border:none; border-radius:8px; font-size:17px; font-weight:500; cursor:pointer; letter-spacing:2px; }
-.query-btn:active { background:#0d5fdb; }
+.query-btn { width:100%; height:48px; background:#007aff; color:#fff; border:none; border-radius:8px; font-size:17px; font-weight:500; cursor:pointer; }
+.query-btn:active { background:#0051d5; }
 
 /* Page 2 */
-.result-body { flex:1; background:#f5f5f5; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-.summary-card { background:#fff; padding:18px 16px 16px; margin-bottom:10px; }
-.summary-item { margin-bottom:18px; }
+.result-body { flex:1; background:#f5f5f7; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.summary-card { background:#fff; padding:20px 16px 18px; margin-bottom:10px; }
+.summary-item { margin-bottom:20px; }
 .summary-item:last-child { margin-bottom:0; }
-.summary-label { font-size:11px; color:#999; margin-bottom:5px; display:flex; align-items:center; gap:3px; font-weight:400; line-height:1.4; }
-.info-icon { width:13px; height:13px; background:#1677ff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:8px; font-style:italic; font-weight:bold; flex-shrink:0; line-height:1; }
+.summary-label { font-size:13px; color:#8e8e93; margin-bottom:8px; display:flex; align-items:center; gap:4px; font-weight:400; line-height:1.4; }
+.info-icon { width:14px; height:14px; background:#007aff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:9px; font-style:italic; font-weight:bold; flex-shrink:0; line-height:1; }
 .summary-value { display:flex; align-items:baseline; }
-.summary-amount { font-size:30px; font-weight:600; color:#000; letter-spacing:-0.5px; line-height:1.2; }
-.summary-unit { font-size:14px; color:#666; margin-left:2px; font-weight:400; }
+.summary-amount { font-size:22px; font-weight:400; color:#000; letter-spacing:-0.5px; line-height:1.2; }
+.summary-unit { font-size:14px; color:#8e8e93; margin-left:3px; font-weight:400; }
 .appeal-btn-wrap { padding:0 16px 12px; }
-.appeal-btn { background:#1677ff; border:none; color:#fff; border-radius:4px; padding:10px 20px; font-size:15px; font-weight:400; cursor:pointer; display:block; text-align:center; width:100%; }
-.appeal-btn:active { background:#0d5fdb; }
+.appeal-btn { background:#007aff; border:none; color:#fff; border-radius:8px; padding:12px 20px; font-size:15px; font-weight:500; cursor:pointer; display:block; text-align:center; width:100%; }
+.appeal-btn:active { background:#0051d5; }
 .records-list { padding:0 0 30px; }
 .record-card { background:#fff; margin-bottom:8px; padding:14px 16px; }
-.record-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #f0f0f0; }
-.record-type { font-size:15px; font-weight:600; color:#111; }
-.record-period { font-size:13px; color:#888; }
+.record-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #e5e5e5; }
+.record-type { font-size:15px; font-weight:600; color:#000; }
+.record-period { font-size:13px; color:#8e8e93; }
 .record-row { display:flex; justify-content:space-between; align-items:flex-start; padding:5px 0; }
-.record-key { font-size:13px; color:#888; flex-shrink:0; margin-right:8px; }
-.record-val { font-size:13px; color:#333; text-align:right; flex:1; }
-.record-val.amount { color:#111; font-weight:500; }
-.record-val.tax { color:#1677ff; font-weight:500; }
+.record-key { font-size:13px; color:#8e8e93; flex-shrink:0; margin-right:8px; }
+.record-val { font-size:13px; color:#000; text-align:right; flex:1; }
+.record-val.amount { color:#000; font-weight:500; }
+.record-val.tax { color:#007aff; font-weight:500; }
 </style>
 </head>
 <body>
