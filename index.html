@@ -14,7 +14,7 @@
     font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
     background: #f2f2f7;
     min-height: 100vh;
-    color: #000;
+    color: #1a1a1a;
     max-width: 430px;
     margin: 0 auto;
   }
@@ -29,30 +29,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 0.5px solid #c8c8cc;
+    border-bottom: 0.5px solid #d0d0d5;
     position: relative;
   }
-  /* NOT bold */
-  .nav-title { font-size: 17px; font-weight: 400; color: #000; }
+  /* NOT bold, slightly lighter black */
+  .nav-title { font-size: 17px; font-weight: 400; color: #1c1c1e; }
 
-  /* Back & right: smaller than title */
+  /* Back & right: smaller but not too small */
   .nav-back {
     position: absolute;
     left: 16px;
-    color: #007aff;
-    font-size: 14px;
+    color: #3a8ef5;
+    font-size: 15px;
     display: flex;
     align-items: center;
     gap: 3px;
     cursor: pointer;
     user-select: none;
   }
-  .nav-back svg { width: 8px; height: 14px; }
+  .nav-back svg { width: 9px; height: 15px; }
   .nav-right {
     position: absolute;
     right: 16px;
-    color: #007aff;
-    font-size: 14px;
+    color: #3a8ef5;
+    font-size: 15px;
     cursor: pointer;
   }
 
@@ -60,64 +60,71 @@
   .section-header {
     background: #fff;
     padding: 13px 16px 11px;
-    border-top: 0.5px solid #e5e5ea;
-    border-bottom: 0.5px solid #e5e5ea;
+    border-top: 0.5px solid #e0e0e5;
+    border-bottom: 0.5px solid #e0e0e5;
     display: flex;
     align-items: center;
     gap: 8px;
     margin-top: 10px;
   }
-  .section-header-bar { width: 3px; height: 18px; background: #007aff; border-radius: 2px; }
-  .section-header-text { font-size: 16px; font-weight: 600; color: #000; }
+  .section-header-bar { width: 3px; height: 18px; background: #3a8ef5; border-radius: 2px; }
+  .section-header-text { font-size: 16px; font-weight: 600; color: #1c1c1e; }
 
-  /* Year row — label left, value centered, arrow right */
+  /* Year row */
   .year-row {
     background: #fff;
-    border-bottom: 0.5px solid #e5e5ea;
+    border-bottom: 0.5px solid #e0e0e5;
     padding: 14px 16px;
     display: flex;
     align-items: center;
     cursor: pointer;
   }
-  .year-label { font-size: 16px; color: #000; flex-shrink: 0; }
-  .year-center { flex: 1; display: flex; justify-content: center; }
-  .year-value { font-size: 16px; color: #000; }
-  .year-arrow { color: #c7c7cc; font-size: 18px; flex-shrink: 0; }
+  /* "年度" slightly gray, bigger */
+  .year-label { font-size: 17px; color: #555558; flex-shrink: 0; }
+  /* year value: NOT centered, starts after label area matching "度" position */
+  .year-center {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 60px; /* aligns "2" roughly under end of "度" */
+  }
+  .year-value { font-size: 17px; color: #1c1c1e; }
+  /* larger arrow */
+  .year-arrow { color: #b0b0b8; font-size: 22px; flex-shrink: 0; line-height: 1; }
 
   .income-types { background: #fff; }
   .type-item {
     display: flex; align-items: center; gap: 14px;
     padding: 15px 16px;
-    border-bottom: 0.5px solid #e5e5ea;
+    border-bottom: 0.5px solid #e0e0e5;
   }
   .type-item:last-child { border-bottom: none; }
   .type-check {
-    width: 26px; height: 26px; background: #007aff; border-radius: 50%;
+    width: 26px; height: 26px; background: #3a8ef5; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .type-check svg { width: 14px; height: 14px; }
-  .type-name { font-size: 16px; color: #000; }
+  /* slightly bigger type names */
+  .type-name { font-size: 17px; color: #1c1c1e; }
 
-  /* Two stacked chevrons */
+  /* Two chevrons — slightly bigger than text but not too big */
   .other-types {
     padding: 13px 16px;
-    color: #007aff;
-    font-size: 16px;
+    color: #3a8ef5;
+    font-size: 17px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0;
   }
-  .other-types-text { margin-right: 5px; }
-  .chevron-pair { display: flex; flex-direction: column; gap: -2px; }
+  .other-types-text { margin-right: 4px; }
+  .chevron-pair { display: flex; flex-direction: column; gap: 0px; }
   .chevron-pair svg { display: block; }
 
-  /* Query button just below 其他类型 */
   .query-btn-wrap { padding: 12px 16px; }
   .query-btn {
     width: 100%;
-    background: #3478f6;
+    background: #3a8ef5;
     color: #fff; border: none;
     border-radius: 12px;
     font-size: 17px; font-weight: 500;
@@ -131,7 +138,7 @@
   .picker-overlay {
     display: none;
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.35);
     z-index: 100;
     align-items: flex-end;
     max-width: 430px; margin: 0 auto;
@@ -140,10 +147,10 @@
   .picker-sheet { width: 100%; background: #fff; }
   .picker-toolbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 14px 20px; border-bottom: 0.5px solid #e5e5ea;
+    padding: 14px 20px; border-bottom: 0.5px solid #e0e0e5;
   }
   .picker-cancel { color: #8e8e93; font-size: 17px; cursor: pointer; }
-  .picker-confirm { color: #007aff; font-size: 17px; cursor: pointer; }
+  .picker-confirm { color: #3a8ef5; font-size: 17px; cursor: pointer; }
   .picker-scroll { height: 220px; overflow: hidden; position: relative; }
   .picker-mask-top, .picker-mask-bottom {
     position: absolute; left: 0; right: 0; height: 88px; pointer-events: none; z-index: 2;
@@ -152,7 +159,7 @@
   .picker-mask-bottom { bottom: 0; background: linear-gradient(to top, rgba(255,255,255,.95), rgba(255,255,255,0)); }
   .picker-selection-line {
     position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
-    height: 44px; border-top: 0.5px solid #c8c8cc; border-bottom: 0.5px solid #c8c8cc;
+    height: 44px; border-top: 0.5px solid #d0d0d5; border-bottom: 0.5px solid #d0d0d5;
     pointer-events: none; z-index: 3;
   }
   .picker-items {
@@ -162,67 +169,72 @@
   .picker-items::-webkit-scrollbar { display: none; }
   .picker-item {
     height: 44px; display: flex; align-items: center; justify-content: center;
-    font-size: 20px; color: #8e8e93; scroll-snap-align: center; cursor: pointer;
+    font-size: 20px; color: #9e9ea3; scroll-snap-align: center; cursor: pointer;
   }
-  .picker-item.selected { color: #000; font-weight: 600; }
+  .picker-item.selected { color: #1c1c1e; font-weight: 600; }
   .picker-spacer { height: 88px; scroll-snap-align: none; }
 
   /* ===== DETAIL PAGES ===== */
-  /* Summary: smaller font */
+  /* Gray gap between nav and summary — same as between cards */
+  .nav-gap { height: 10px; background: #f2f2f7; }
+
   .summary-block {
     background: #fff;
     padding: 0 16px;
-    border-bottom: 0.5px solid #e5e5ea;
+    border-top: 0.5px solid #e0e0e5;
+    border-bottom: 0.5px solid #e0e0e5;
   }
   .summary-row {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 0;
+    padding: 11px 0;
   }
-  .summary-row + .summary-row { border-top: 0.5px solid #e5e5ea; }
+  .summary-row + .summary-row { border-top: 0.5px solid #e0e0e5; }
   .summary-label {
-    font-size: 14px; color: #000;
+    font-size: 15px; color: #1c1c1e;
     display: flex; align-items: center; gap: 4px;
   }
-  /* Blue question mark, small */
+  /* Blue question mark, thin border, not bold */
   .qmark {
-    width: 14px; height: 14px;
-    border: 1.5px solid #007aff; border-radius: 50%;
+    width: 15px; height: 15px;
+    border: 1px solid #3a8ef5; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
-    font-size: 10px; color: #007aff; font-weight: 700;
+    font-size: 10px; color: #3a8ef5; font-weight: 400;
     flex-shrink: 0; line-height: 1;
   }
-  .summary-value { font-size: 14px; color: #000; }
+  .summary-value { font-size: 15px; color: #1c1c1e; }
 
-  /* Records: bigger font */
+  /* Records */
   .records-list { flex: 1; padding-bottom: 24px; }
   .record-card {
     background: #fff;
     margin-top: 10px;
     padding: 13px 16px;
-    border-top: 0.5px solid #e5e5ea;
-    border-bottom: 0.5px solid #e5e5ea;
+    border-top: 0.5px solid #e0e0e5;
+    border-bottom: 0.5px solid #e0e0e5;
   }
-  /* Header: type left, month with right padding so it's NOT flush right */
   .record-header {
     display: flex; align-items: center;
     justify-content: space-between;
     margin-bottom: 7px;
-    padding-right: 30px;   /* month sits away from edge */
+    padding-right: 32px;
   }
-  .record-type { font-size: 16px; color: #000; }
-  .record-month { font-size: 16px; color: #000; }
+  .record-type { font-size: 16px; color: #1c1c1e; }
+  .record-month { font-size: 16px; color: #1c1c1e; }
 
-  /* Detail rows bigger, with large arrow */
-  .record-detail { font-size: 15px; color: #8e8e93; }
-  .record-body { display: flex; align-items: center; }
+  .record-detail { font-size: 15px; color: #7a7a80; }
+  /* body: flex with arrow vertically centered */
+  .record-body {
+    display: flex;
+    align-items: center;  /* vertically center arrow */
+  }
   .record-detail-left { flex: 1; }
   .record-detail-line { line-height: 1.9; }
-  /* Large arrow */
+  /* Large arrow, vertically centered */
   .record-arrow {
-    color: #c7c7cc;
-    font-size: 26px;
+    color: #c0c0c8;
+    font-size: 28px;
     flex-shrink: 0;
-    margin-left: 4px;
+    margin-left: 6px;
     line-height: 1;
     align-self: center;
   }
@@ -275,15 +287,15 @@
     </div>
   </div>
 
-  <!-- Two stacked chevrons -->
+  <!-- Two chevrons, slightly bigger than text -->
   <div class="other-types">
     <span class="other-types-text">其他类型</span>
     <div class="chevron-pair">
-      <svg width="20" height="11" viewBox="0 0 20 11" fill="none">
-        <polyline points="2,2 10,9 18,2" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="19" height="10" viewBox="0 0 19 10" fill="none">
+        <polyline points="2,2 9.5,8 17,2" stroke="#3a8ef5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <svg width="20" height="11" viewBox="0 0 20 11" fill="none">
-        <polyline points="2,2 10,9 18,2" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="19" height="10" viewBox="0 0 19 10" fill="none">
+        <polyline points="2,2 9.5,8 17,2" stroke="#3a8ef5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   </div>
@@ -321,12 +333,13 @@
 <div class="page" id="page2025">
   <div class="nav-bar">
     <div class="nav-back" onclick="goBack()">
-      <svg viewBox="0 0 8 14" fill="none"><polyline points="7,1 1,7 7,13" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 9 15" fill="none"><polyline points="8,1 1,7.5 8,14" stroke="#3a8ef5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       返回
     </div>
     <div class="nav-title">收入纳税明细</div>
     <div class="nav-right">批量申诉</div>
   </div>
+  <div class="nav-gap"></div>
   <div class="summary-block">
     <div class="summary-row">
       <div class="summary-label">收入合计<span class="qmark">?</span>：</div>
@@ -344,12 +357,13 @@
 <div class="page" id="page2026">
   <div class="nav-bar">
     <div class="nav-back" onclick="goBack()">
-      <svg viewBox="0 0 8 14" fill="none"><polyline points="7,1 1,7 7,13" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 9 15" fill="none"><polyline points="8,1 1,7.5 8,14" stroke="#3a8ef5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       返回
     </div>
     <div class="nav-title">收入纳税明细</div>
     <div class="nav-right">批量申诉</div>
   </div>
+  <div class="nav-gap"></div>
   <div class="summary-block">
     <div class="summary-row">
       <div class="summary-label">收入合计<span class="qmark">?</span>：</div>
