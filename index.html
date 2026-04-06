@@ -3,173 +3,471 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="收入纳税明细">
-<title>收入纳税明细 v2.0</title>
+<title>收入纳税明细</title>
 <style>
-/* 版本: 4.0 - 按原图设计 - 更新时间: 2026-04-05 11:52 */
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-body { font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif; background:#f5f5f7; color:#333; font-size:14px; line-height:1.5; }
-.page { display:none; min-height:100vh; flex-direction:column; }
-.page.active { display:flex; }
-.navbar { background:#fff; display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid #e5e5e5; position:sticky; top:0; z-index:10; }
-.navbar .back { font-size:15px; color:#007aff; display:flex; align-items:center; min-width:50px; cursor:pointer; }
-.navbar .back::before { content:'‹'; font-size:24px; line-height:1; margin-right:2px; }
-.navbar .title { flex:1; text-align:center; font-size:17px; font-weight:600; color:#000; }
-.navbar .right { min-width:50px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-/* Page 1 */
-.query-body { flex:1; background:#f5f5f7; padding:12px 0; }
-.form-group { background:#fff; margin-bottom:10px; }
-.form-row { display:flex; align-items:center; padding:14px 16px; border-bottom:1px solid #e5e5e5; }
-.form-row:last-child { border-bottom:none; }
-.form-label { font-size:15px; color:#000; width:80px; flex-shrink:0; }
-.form-select { flex:1; border:none; outline:none; font-size:15px; color:#000; background:transparent; -webkit-appearance:none; appearance:none; text-align:right; padding-right:20px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23999' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 2px center; }
-.checkbox-group { background:#fff; padding:14px 16px; margin-bottom:10px; }
-.checkbox-group-title { font-size:15px; color:#000; margin-bottom:14px; }
-.checkbox-list { display:flex; flex-direction:column; gap:14px; }
-.checkbox-item { display:flex; align-items:center; gap:10px; cursor:pointer; }
-.checkbox-item input[type=checkbox] { width:20px; height:20px; accent-color:#007aff; cursor:pointer; }
-.checkbox-item span { font-size:15px; color:#000; }
-.query-btn-wrap { padding:20px 16px; }
-.query-btn { width:100%; height:48px; background:#007aff; color:#fff; border:none; border-radius:8px; font-size:17px; font-weight:500; cursor:pointer; }
-.query-btn:active { background:#0051d5; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: #f2f2f7;
+    min-height: 100vh;
+    color: #000;
+    max-width: 430px;
+    margin: 0 auto;
+  }
 
-/* Page 2 */
-.result-body { flex:1; background:#f5f5f7; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-.summary-card { background:#fff; padding:20px 16px 18px; margin-bottom:10px; }
-.summary-item { margin-bottom:20px; }
-.summary-item:last-child { margin-bottom:0; }
-.summary-label { font-size:15px; color:#8e8e93; margin-bottom:8px; display:flex; align-items:center; gap:4px; font-weight:400; line-height:1.4; }
-.info-icon { width:14px; height:14px; background:#007aff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:9px; font-style:italic; font-weight:bold; flex-shrink:0; line-height:1; }
-.summary-value { display:flex; align-items:baseline; }
-.summary-amount { font-size:18px; font-weight:500; color:#000; letter-spacing:-0.5px; line-height:1.2; }
-.summary-unit { font-size:14px; color:#8e8e93; margin-left:3px; font-weight:400; }
-.appeal-btn-wrap { padding:0 16px 12px; }
-.appeal-btn { background:#007aff; border:none; color:#fff; border-radius:8px; padding:12px 20px; font-size:15px; font-weight:400; cursor:pointer; display:block; text-align:center; width:100%; }
-.appeal-btn:active { background:#0051d5; }
-.records-list { padding:0 0 30px; }
-.record-card { background:#fff; margin-bottom:8px; padding:14px 16px; }
-.record-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #e5e5e5; }
-.record-type { font-size:15px; font-weight:400; color:#000; }
-.record-period { font-size:13px; color:#8e8e93; }
-.record-row { display:flex; justify-content:space-between; align-items:flex-start; padding:5px 0; }
-.record-key { font-size:12px; color:#8e8e93; flex-shrink:0; margin-right:8px; }
-.record-val { font-size:12px; color:#000; text-align:right; flex:1; }
-.record-val.amount { color:#000; font-size:14px; font-weight:500; }
-.record-val.tax { color:#007aff; font-size:14px; font-weight:500; }
+  .page { display: none; min-height: 100vh; background: #f2f2f7; flex-direction: column; }
+  .page.active { display: flex; }
+
+  /* ===== NAV BAR ===== */
+  .nav-bar {
+    background: #fff;
+    padding: 13px 16px 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.5px solid #c8c8cc;
+    position: relative;
+  }
+  /* NOT bold */
+  .nav-title { font-size: 17px; font-weight: 400; color: #000; }
+
+  /* Back & right: smaller than title */
+  .nav-back {
+    position: absolute;
+    left: 16px;
+    color: #007aff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .nav-back svg { width: 8px; height: 14px; }
+  .nav-right {
+    position: absolute;
+    right: 16px;
+    color: #007aff;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* ===== PAGE 1 ===== */
+  .section-header {
+    background: #fff;
+    padding: 13px 16px 11px;
+    border-top: 0.5px solid #e5e5ea;
+    border-bottom: 0.5px solid #e5e5ea;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .section-header-bar { width: 3px; height: 18px; background: #007aff; border-radius: 2px; }
+  .section-header-text { font-size: 16px; font-weight: 600; color: #000; }
+
+  /* Year row — label left, value centered, arrow right */
+  .year-row {
+    background: #fff;
+    border-bottom: 0.5px solid #e5e5ea;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .year-label { font-size: 16px; color: #000; flex-shrink: 0; }
+  .year-center { flex: 1; display: flex; justify-content: center; }
+  .year-value { font-size: 16px; color: #000; }
+  .year-arrow { color: #c7c7cc; font-size: 18px; flex-shrink: 0; }
+
+  .income-types { background: #fff; }
+  .type-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 15px 16px;
+    border-bottom: 0.5px solid #e5e5ea;
+  }
+  .type-item:last-child { border-bottom: none; }
+  .type-check {
+    width: 26px; height: 26px; background: #007aff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .type-check svg { width: 14px; height: 14px; }
+  .type-name { font-size: 16px; color: #000; }
+
+  /* Two stacked chevrons */
+  .other-types {
+    padding: 13px 16px;
+    color: #007aff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+  .other-types-text { margin-right: 5px; }
+  .chevron-pair { display: flex; flex-direction: column; gap: -2px; }
+  .chevron-pair svg { display: block; }
+
+  /* Query button just below 其他类型 */
+  .query-btn-wrap { padding: 12px 16px; }
+  .query-btn {
+    width: 100%;
+    background: #3478f6;
+    color: #fff; border: none;
+    border-radius: 12px;
+    font-size: 17px; font-weight: 500;
+    padding: 15px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .query-btn:active { opacity: 0.85; }
+
+  /* ===== PICKER ===== */
+  .picker-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    align-items: flex-end;
+    max-width: 430px; margin: 0 auto;
+  }
+  .picker-overlay.show { display: flex; }
+  .picker-sheet { width: 100%; background: #fff; }
+  .picker-toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 20px; border-bottom: 0.5px solid #e5e5ea;
+  }
+  .picker-cancel { color: #8e8e93; font-size: 17px; cursor: pointer; }
+  .picker-confirm { color: #007aff; font-size: 17px; cursor: pointer; }
+  .picker-scroll { height: 220px; overflow: hidden; position: relative; }
+  .picker-mask-top, .picker-mask-bottom {
+    position: absolute; left: 0; right: 0; height: 88px; pointer-events: none; z-index: 2;
+  }
+  .picker-mask-top { top: 0; background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(255,255,255,0)); }
+  .picker-mask-bottom { bottom: 0; background: linear-gradient(to top, rgba(255,255,255,.95), rgba(255,255,255,0)); }
+  .picker-selection-line {
+    position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+    height: 44px; border-top: 0.5px solid #c8c8cc; border-bottom: 0.5px solid #c8c8cc;
+    pointer-events: none; z-index: 3;
+  }
+  .picker-items {
+    height: 100%; overflow-y: scroll;
+    scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .picker-items::-webkit-scrollbar { display: none; }
+  .picker-item {
+    height: 44px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: #8e8e93; scroll-snap-align: center; cursor: pointer;
+  }
+  .picker-item.selected { color: #000; font-weight: 600; }
+  .picker-spacer { height: 88px; scroll-snap-align: none; }
+
+  /* ===== DETAIL PAGES ===== */
+  /* Summary: smaller font */
+  .summary-block {
+    background: #fff;
+    padding: 0 16px;
+    border-bottom: 0.5px solid #e5e5ea;
+  }
+  .summary-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0;
+  }
+  .summary-row + .summary-row { border-top: 0.5px solid #e5e5ea; }
+  .summary-label {
+    font-size: 14px; color: #000;
+    display: flex; align-items: center; gap: 4px;
+  }
+  /* Blue question mark, small */
+  .qmark {
+    width: 14px; height: 14px;
+    border: 1.5px solid #007aff; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #007aff; font-weight: 700;
+    flex-shrink: 0; line-height: 1;
+  }
+  .summary-value { font-size: 14px; color: #000; }
+
+  /* Records: bigger font */
+  .records-list { flex: 1; padding-bottom: 24px; }
+  .record-card {
+    background: #fff;
+    margin-top: 10px;
+    padding: 13px 16px;
+    border-top: 0.5px solid #e5e5ea;
+    border-bottom: 0.5px solid #e5e5ea;
+  }
+  /* Header: type left, month with right padding so it's NOT flush right */
+  .record-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    padding-right: 30px;   /* month sits away from edge */
+  }
+  .record-type { font-size: 16px; color: #000; }
+  .record-month { font-size: 16px; color: #000; }
+
+  /* Detail rows bigger, with large arrow */
+  .record-detail { font-size: 15px; color: #8e8e93; }
+  .record-body { display: flex; align-items: center; }
+  .record-detail-left { flex: 1; }
+  .record-detail-line { line-height: 1.9; }
+  /* Large arrow */
+  .record-arrow {
+    color: #c7c7cc;
+    font-size: 26px;
+    flex-shrink: 0;
+    margin-left: 4px;
+    line-height: 1;
+    align-self: center;
+  }
 </style>
 </head>
 <body>
 
-<!-- PAGE 1 -->
-<div class="page active" id="page-query">
-  <div class="navbar">
-    <div class="back">返回</div>
-    <div class="title">收入纳税明细</div>
-    <div class="right"></div>
+<!-- ===== PAGE 1 ===== -->
+<div class="page active" id="page1">
+  <div class="nav-bar">
+    <div class="nav-title">收入纳税明细</div>
   </div>
-  <div class="query-body">
-    <div class="form-group">
-      <div class="form-row">
-        <div class="form-label">年度</div>
-        <select class="form-select" id="year-select">
-          <option value="2026">2026</option>
-          <option value="2025" selected>2025</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-        </select>
-      </div>
+
+  <div class="section-header">
+    <div class="section-header-bar"></div>
+    <div class="section-header-text">请选择纳税年度</div>
+  </div>
+
+  <div class="year-row" onclick="openPicker()">
+    <span class="year-label">年度</span>
+    <div class="year-center">
+      <span class="year-value" id="yearDisplay">2025</span>
     </div>
-    <div class="checkbox-group">
-      <div class="checkbox-group-title">请选择所得类型</div>
-      <div class="checkbox-list">
-        <label class="checkbox-item"><input type="checkbox" checked><span>工资薪金</span></label>
-        <label class="checkbox-item"><input type="checkbox"><span>劳务报酬</span></label>
-        <label class="checkbox-item"><input type="checkbox"><span>稿酬</span></label>
-        <label class="checkbox-item"><input type="checkbox"><span>特许权使用费</span></label>
-        <label class="checkbox-item"><input type="checkbox"><span>其他类型</span></label>
-      </div>
+    <span class="year-arrow">›</span>
+  </div>
+
+  <div style="height:10px;background:#f2f2f7;"></div>
+
+  <div class="section-header" style="margin-top:0;">
+    <div class="section-header-bar"></div>
+    <div class="section-header-text">请选择所得类型</div>
+  </div>
+
+  <div class="income-types">
+    <div class="type-item">
+      <div class="type-check"><svg viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="type-name">工资薪金</span>
     </div>
-    <div class="query-btn-wrap">
-      <button class="query-btn" onclick="goResult()">查询</button>
+    <div class="type-item">
+      <div class="type-check"><svg viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="type-name">劳务报酬</span>
+    </div>
+    <div class="type-item">
+      <div class="type-check"><svg viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="type-name">稿酬</span>
+    </div>
+    <div class="type-item">
+      <div class="type-check"><svg viewBox="0 0 14 14" fill="none"><polyline points="2,7 6,11 12,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="type-name">特许权使用费</span>
+    </div>
+  </div>
+
+  <!-- Two stacked chevrons -->
+  <div class="other-types">
+    <span class="other-types-text">其他类型</span>
+    <div class="chevron-pair">
+      <svg width="20" height="11" viewBox="0 0 20 11" fill="none">
+        <polyline points="2,2 10,9 18,2" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg width="20" height="11" viewBox="0 0 20 11" fill="none">
+        <polyline points="2,2 10,9 18,2" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="query-btn-wrap">
+    <button class="query-btn" onclick="doQuery()">查询</button>
+  </div>
+</div>
+
+<!-- ===== PICKER ===== -->
+<div class="picker-overlay" id="pickerOverlay">
+  <div class="picker-sheet">
+    <div class="picker-toolbar">
+      <span class="picker-cancel" onclick="closePicker(false)">取消</span>
+      <span class="picker-confirm" onclick="closePicker(true)">确定</span>
+    </div>
+    <div class="picker-scroll">
+      <div class="picker-mask-top"></div>
+      <div class="picker-selection-line"></div>
+      <div class="picker-mask-bottom"></div>
+      <div class="picker-items" id="pickerItems">
+        <div class="picker-spacer"></div>
+        <div class="picker-item" data-year="2022">2022</div>
+        <div class="picker-item" data-year="2023">2023</div>
+        <div class="picker-item" data-year="2024">2024</div>
+        <div class="picker-item selected" data-year="2025">2025</div>
+        <div class="picker-item" data-year="2026">2026</div>
+        <div class="picker-spacer"></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE 2 -->
-<div class="page" id="page-result">
-  <div class="navbar">
-    <div class="back" onclick="goBack()">返回</div>
-    <div class="title">收入纳税明细</div>
-    <div class="right"></div>
-  </div>
-  <div class="result-body">
-    <div class="summary-card">
-      <div class="summary-item">
-        <div class="summary-label"><span class="info-icon">i</span>收入合计</div>
-        <div class="summary-value"><span class="summary-amount">436,020.00</span><span class="summary-unit">元</span></div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">已申报税额合计</div>
-        <div class="summary-value"><span class="summary-amount">36,830.80</span><span class="summary-unit">元</span></div>
-      </div>
+<!-- ===== PAGE 2: 2025 ===== -->
+<div class="page" id="page2025">
+  <div class="nav-bar">
+    <div class="nav-back" onclick="goBack()">
+      <svg viewBox="0 0 8 14" fill="none"><polyline points="7,1 1,7 7,13" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      返回
     </div>
-    <div class="appeal-btn-wrap">
-      <button class="appeal-btn">批量申诉</button>
-    </div>
-    <div class="records-list" id="records-container"></div>
+    <div class="nav-title">收入纳税明细</div>
+    <div class="nav-right">批量申诉</div>
   </div>
+  <div class="summary-block">
+    <div class="summary-row">
+      <div class="summary-label">收入合计<span class="qmark">?</span>：</div>
+      <div class="summary-value">436020.00元</div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-label">已申报税额合计：</div>
+      <div class="summary-value">36830.80元</div>
+    </div>
+  </div>
+  <div class="records-list" id="records2025"></div>
+</div>
+
+<!-- ===== PAGE 3: 2026 ===== -->
+<div class="page" id="page2026">
+  <div class="nav-bar">
+    <div class="nav-back" onclick="goBack()">
+      <svg viewBox="0 0 8 14" fill="none"><polyline points="7,1 1,7 7,13" stroke="#007aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      返回
+    </div>
+    <div class="nav-title">收入纳税明细</div>
+    <div class="nav-right">批量申诉</div>
+  </div>
+  <div class="summary-block">
+    <div class="summary-row">
+      <div class="summary-label">收入合计<span class="qmark">?</span>：</div>
+      <div class="summary-value">93240.00元</div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-label">已申报税额合计：</div>
+      <div class="summary-value">3399.60元</div>
+    </div>
+  </div>
+  <div class="records-list" id="records2026"></div>
 </div>
 
 <script>
-var records = [
-  {period:'2025-12', subtype:'正常工资薪金', income:'31,000.00', tax:'3,946.40'},
-  {period:'2025-12', subtype:'全年一次性奖金收入', income:'62,000.00', tax:'5,990.00'},
-  {period:'2025-11', subtype:'正常工资薪金', income:'31,000.00', tax:'3,946.40'},
-  {period:'2025-10', subtype:'正常工资薪金', income:'31,240.00', tax:'3,994.40'},
-  {period:'2025-09', subtype:'正常工资薪金', income:'31,200.00', tax:'3,986.40'},
-  {period:'2025-08', subtype:'正常工资薪金', income:'31,000.00', tax:'3,516.80'},
-  {period:'2025-07', subtype:'正常工资薪金', income:'31,240.00', tax:'1,997.20'},
-  {period:'2025-06', subtype:'正常工资薪金', income:'31,400.00', tax:'2,007.20'},
-  {period:'2025-05', subtype:'正常工资薪金', income:'31,200.00', tax:'1,999.20'},
-  {period:'2025-04', subtype:'正常工资薪金', income:'31,240.00', tax:'1,997.20'},
-  {period:'2025-03', subtype:'正常工资薪金', income:'31,000.00', tax:'1,973.20'},
-  {period:'2025-02', subtype:'正常工资薪金', income:'31,500.00', tax:'884.44'},
-  {period:'2025-01', subtype:'正常工资薪金', income:'31,000.00', tax:'591.96'}
+const data2025 = [
+  { type:'工资薪金', subtype:'全年一次性奖金收入', month:'2025-12', income:62000,  tax:5990    },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-12', income:31000,  tax:3946.4  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-11', income:31000,  tax:3946.4  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-10', income:31240,  tax:3994.4  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-09', income:31200,  tax:3986.4  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-08', income:31000,  tax:3516.8  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-07', income:31240,  tax:1997.2  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-06', income:31400,  tax:2007.2  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-05', income:31200,  tax:1999.2  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-04', income:31240,  tax:1997.2  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-03', income:31000,  tax:1973.2  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-02', income:31500,  tax:884.44  },
+  { type:'工资薪金', subtype:'正常工资薪金',       month:'2025-01', income:31000,  tax:591.96  },
+];
+const data2026 = [
+  { type:'工资薪金', subtype:'正常工资薪金', month:'2026-03', income:31000, tax:1949.2 },
+  { type:'工资薪金', subtype:'正常工资薪金', month:'2026-02', income:31000, tax:851.24 },
+  { type:'工资薪金', subtype:'正常工资薪金', month:'2026-01', income:31240, tax:599.16 },
 ];
 
-function renderRecords() {
-  var container = document.getElementById('records-container');
-  container.innerHTML = records.map(function(r) {
-    return '<div class="record-card">'+
-      '<div class="record-header">'+
-        '<span class="record-type">工资薪金</span>'+
-        '<span class="record-period">'+r.period+'</span>'+
-      '</div>'+
-      '<div class="record-row"><span class="record-key">所得项目小类：</span><span class="record-val">'+r.subtype+'</span></div>'+
-      '<div class="record-row"><span class="record-key">扣缴义务人：</span><span class="record-val">广东省维业科技有限公司</span></div>'+
-      '<div class="record-row"><span class="record-key">收入：</span><span class="record-val amount">'+r.income+'元</span></div>'+
-      '<div class="record-row"><span class="record-key">已申报税额：</span><span class="record-val tax">'+r.tax+'元</span></div>'+
-    '</div>';
-  }).join('');
-}
+function fmt(n) { return n.toFixed(2) + '元'; }
 
-function goResult() {
-  renderRecords();
-  document.getElementById('page-query').classList.remove('active');
-  document.getElementById('page-result').classList.add('active');
-  document.getElementById('page-result').querySelector('.result-body').scrollTop = 0;
+function renderRecords(id, records) {
+  document.getElementById(id).innerHTML = records.map(r => `
+    <div class="record-card">
+      <div class="record-header">
+        <span class="record-type">${r.type}</span>
+        <span class="record-month">${r.month}</span>
+      </div>
+      <div class="record-detail">
+        <div class="record-detail-line">所得项目小类：${r.subtype}</div>
+        <div class="record-body">
+          <div class="record-detail-left">
+            <div class="record-detail-line">扣缴义务人：广东省维业科技有限公司</div>
+            <div class="record-detail-line">收入：${fmt(r.income)}</div>
+            <div class="record-detail-line">已申报税额：${fmt(r.tax)}</div>
+          </div>
+          <span class="record-arrow">›</span>
+        </div>
+      </div>
+    </div>`).join('');
 }
+renderRecords('records2025', data2025);
+renderRecords('records2026', data2026);
 
-function goBack() {
-  document.getElementById('page-result').classList.remove('active');
-  document.getElementById('page-query').classList.add('active');
+// Picker
+let selectedYear = 2025, tempYear = 2025;
+const years = [2022,2023,2024,2025,2026];
+
+function openPicker() {
+  tempYear = selectedYear;
+  updatePickerUI(tempYear);
+  document.getElementById('pickerOverlay').classList.add('show');
+  scrollToYear(tempYear, false);
 }
+function updatePickerUI(y) {
+  document.querySelectorAll('.picker-item').forEach(el =>
+    el.classList.toggle('selected', parseInt(el.dataset.year) === y));
+}
+function scrollToYear(y, animate) {
+  const el = document.getElementById('pickerItems');
+  const idx = years.indexOf(y);
+  if (idx < 0) return;
+  el.scrollTo({ top: idx * 44, behavior: animate ? 'smooth' : 'instant' });
+}
+function closePicker(ok) {
+  if (ok) { selectedYear = tempYear; document.getElementById('yearDisplay').textContent = selectedYear; }
+  document.getElementById('pickerOverlay').classList.remove('show');
+}
+const pickerEl = document.getElementById('pickerItems');
+let st;
+pickerEl.addEventListener('scroll', () => {
+  clearTimeout(st);
+  st = setTimeout(() => {
+    const idx = Math.max(0, Math.min(years.length-1, Math.round(pickerEl.scrollTop/44)));
+    tempYear = years[idx];
+    updatePickerUI(tempYear);
+    pickerEl.scrollTo({ top: idx*44, behavior: 'smooth' });
+  }, 120);
+});
+document.querySelectorAll('.picker-item').forEach(el => {
+  el.addEventListener('click', () => {
+    tempYear = parseInt(el.dataset.year);
+    updatePickerUI(tempYear);
+    scrollToYear(tempYear, true);
+  });
+});
+document.getElementById('pickerOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closePicker(false);
+});
+
+// Nav
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function doQuery() {
+  if (selectedYear === 2025) showPage('page2025');
+  else if (selectedYear === 2026) showPage('page2026');
+  else alert('暂无 ' + selectedYear + ' 年数据');
+}
+function goBack() { showPage('page1'); }
 </script>
 </body>
 </html>
